@@ -1,0 +1,93 @@
+<!-- <app-calculation></app-calculation> -->
+<div class="container mt-3">
+    <h3 class="text-center">Current Bill Calculation</h3>
+    <form #form="ngForm" (ngSubmit)="getValues(form.value)">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Consumer 1</h4>
+          <div class="mb-3">
+            <label for="C1previousUnit" class="form-label">Previous Unit</label>
+            <input type="number" class="form-control" name="C1previousUnit" placeholder="Enter previous unit" ngModel>
+            <!-- <div id="previousUnitHelp" class="form-text"></div> -->
+          </div>
+          <div class="mb-3">
+            <label for="C1presentUnit" class="form-label">Present Unit</label>
+            <input type="number" class="form-control" name="C1presentUnit" placeholder="Enter present unit" ngModel>
+            <!-- <div id="presentUnitHelp" class="form-text"></div> -->
+          </div>
+          <div class="mb-3">
+            <label for="C1paidAmount" class="form-label">Paid Amount</label>
+            <input type="number" class="form-control" name="C1paidAmount" placeholder="Enter paid amount" ngModel>
+            <!-- <div id="C1paidAmountHelp" class="form-text"></div> -->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h4>Consumer 2</h4>
+          <div class="mb-3">
+            <label for="C2previousUnit" class="form-label">Previous Unit</label>
+            <input type="number" class="form-control" name="C2previousUnit" placeholder="Enter previous unit" ngModel>
+            <!-- <div id="previousUnitHelp" class="form-text"></div> -->
+          </div>
+          <div class="mb-3">
+            <label for="C2presentUnit" class="form-label">Present Unit</label>
+            <input type="number" class="form-control" name="C2presentUnit" placeholder="Enter present unit" ngModel>
+            <!-- <div id="presentUnitHelp" class="form-text"></div> -->
+          </div>
+          <div class="mb-3">
+            <label for="C2paidAmount" class="form-label">Paid Amount</label>
+            <input type="number" class="form-control" name="C2paidAmount" placeholder="Enter paid amount" ngModel>
+            <!-- <div id="C1paidAmountHelp" class="form-text"></div> -->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="energyCost" class="form-label">Energy Cost</label>
+            <input type="number" class="form-control" name="energyCost" placeholder="Enter energy cost" ngModel>
+            <!-- <div id="previousUnitHelp" class="form-text"></div> -->
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label for="" class="form-label">&nbsp;</label>
+            <button type="submit" class="form-control btn btn-primary">Submit</button>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label for="" class="form-label">&nbsp;</label>
+            <button type="reset" class="form-control btn btn-info" (click)="onReset(form)">Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="ShowResult" class="result mt-5">
+      <h3 class="text-center">Result</h3>
+      <h5 class="text-center">Unit Price : {{UnitPrice}}</h5>
+      <h6 class="text-center">Expense : {{expense}}</h6>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Consumer 1</h5>
+          <p class="mt-3">Paid Amount : {{C1paidAmount}}</p>
+          <p>Used Unit : {{C1TotalUnit}}</p>
+          <p>Used Current Price : {{C1energyCost}}</p>
+          <p>Total Cost : <strong>{{C1totalCost}}</strong> </p>
+          <p *ngIf="C1OverLess != 0"
+            [ngClass]="{'text-primary': C1overlessTxt === 'Return', 'text-danger' : C1overlessTxt === 'Due' }">
+            {{C1overlessTxt}} : {{C1OverLess}}</p>
+          <p *ngIf="C1OverLess == 0" class="text-success">ALL OK</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <h5>Consumer 2</h5>
+          <p class="mt-3">Paid Amount : {{C2paidAmount}}</p>
+          <p>Used Unit : {{C2TotalUnit}}</p>
+          <p>Used Current Price : {{C2energyCost}}</p>
+          <p>Total Cost : <strong>{{C2totalCost}}</strong> </p>
+          <p *ngIf="C1OverLess != 0"
+            [ngClass]="{'text-primary': C2overlessTxt === 'Return', 'text-danger' : C2overlessTxt === 'Due' }">
+            {{C2overlessTxt}} : {{C2OverLess}}</p>
+          <p *ngIf="C1OverLess == 0" class="text-success">ALL OK</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-center" *ngIf="ShowResult">Sum Of Cost : {{C1totalCost + C2totalCost}}</p>
+  </div>
